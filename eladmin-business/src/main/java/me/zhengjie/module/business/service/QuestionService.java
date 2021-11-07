@@ -13,11 +13,11 @@
 *  See the License for the specific language governing permissions and
 *  limitations under the License.
 */
-package me.zhengjie.module.system.service;
+package me.zhengjie.module.business.service;
 
-import me.zhengjie.module.system.domain.SysClass;
-import me.zhengjie.module.system.service.dto.SysClassDto;
-import me.zhengjie.module.system.service.dto.SysClassQueryCriteria;
+import me.zhengjie.module.business.domain.Question;
+import me.zhengjie.module.business.service.dto.QuestionDto;
+import me.zhengjie.module.business.service.dto.QuestionQueryCriteria;
 import org.springframework.data.domain.Pageable;
 import java.util.Map;
 import java.util.List;
@@ -30,7 +30,7 @@ import javax.servlet.http.HttpServletResponse;
 * @author KunYi
 * @date 2021-11-05
 **/
-public interface SysClassService {
+public interface QuestionService {
 
     /**
     * 查询数据分页
@@ -38,35 +38,43 @@ public interface SysClassService {
     * @param pageable 分页参数
     * @return Map<String,Object>
     */
-    Map<String,Object> queryAll(SysClassQueryCriteria criteria, Pageable pageable);
+    Map<String,Object> queryAll(QuestionQueryCriteria criteria, Pageable pageable);
+
+
+    /**
+     * 查询数据分页
+     * @param cid 条件
+     * @param pageable 分页参数
+     * @return Map<String,Object>
+     */
+//    Map<String,Object> queryByCid(Integer cid, Pageable pageable);
 
     /**
     * 查询所有数据不分页
     * @param criteria 条件参数
-    * @return List<SysClassDto>
+    * @return List<QuestionDto>
     */
-    List<SysClassDto> queryAll(SysClassQueryCriteria criteria);
-
+    List<QuestionDto> queryAll(QuestionQueryCriteria criteria);
 
     /**
      * 根据ID查询
      * @param id ID
-     * @return SysClassDto
+     * @return QuestionDto
      */
-    SysClassDto findById(Long id);
+    QuestionDto findById(Long id);
 
     /**
     * 创建
     * @param resources /
-    * @return SysClassDto
+    * @return QuestionDto
     */
-    SysClassDto create(SysClass resources);
+    void create(Question resources);
 
     /**
     * 编辑
     * @param resources /
     */
-    void update(SysClass resources);
+    void update(Question resources);
 
     /**
     * 多选删除
@@ -80,5 +88,5 @@ public interface SysClassService {
     * @param response /
     * @throws IOException /
     */
-    void download(List<SysClassDto> all, HttpServletResponse response) throws IOException;
+    void download(List<QuestionDto> all, HttpServletResponse response) throws IOException;
 }

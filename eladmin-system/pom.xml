@@ -38,12 +38,11 @@
             <artifactId>eladmin-tools</artifactId>
             <version>2.6</version>
         </dependency>
-
-        <!-- business 模块 -->
         <dependency>
             <groupId>me.zhengjie</groupId>
             <artifactId>eladmin-business</artifactId>
             <version>2.6</version>
+            <scope>compile</scope>
         </dependency>
 
         <!-- Spring boot websocket -->

@@ -13,28 +13,19 @@
 *  See the License for the specific language governing permissions and
 *  limitations under the License.
 */
-package me.zhengjie.module.system.repository;
+package me.zhengjie.module.business.repository;
 
-import me.zhengjie.module.system.domain.SysClass;
-import me.zhengjie.module.system.service.dto.SysClassDto;
-import me.zhengjie.module.system.service.dto.SysClassQueryCriteria;
-import org.apache.poi.ss.formula.functions.T;
-import org.springframework.data.jpa.domain.Specification;
+
+import me.zhengjie.module.business.domain.Question;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.lang.Nullable;
 
-import javax.persistence.criteria.Root;
-import java.util.List;
 
 /**
 * @website https://el-admin.vip
 * @author KunYi
 * @date 2021-11-05
 **/
-public interface SysClassRepository extends JpaRepository<SysClass, Long>, JpaSpecificationExecutor<SysClass> {
+public interface QuestionRepository extends JpaRepository<Question, Long>, JpaSpecificationExecutor<Question> {
 
-    @Query(value= "select c.id, c.name from sys_class c where enabled = 1", nativeQuery = true)
-    List<SysClass> findAllEnabled(@Nullable Specification<T> var1);
 }

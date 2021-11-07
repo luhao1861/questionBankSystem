@@ -13,7 +13,7 @@
 *  See the License for the specific language governing permissions and
 *  limitations under the License.
 */
-package me.zhengjie.module.system.domain;
+package me.zhengjie.module.business.domain;
 
 import lombok.Data;
 import cn.hutool.core.bean.BeanUtil;
@@ -24,7 +24,10 @@ import javax.validation.constraints.*;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import lombok.Getter;
+import lombok.Setter;
 import me.zhengjie.base.BaseEntity;
+import me.zhengjie.module.system.domain.SysClass;
 import org.hibernate.annotations.*;
 import java.sql.Timestamp;
 import java.io.Serializable;
@@ -37,38 +40,60 @@ import java.util.Objects;
 * @date 2021-11-05
 **/
 @Entity
+@Getter
+@Setter
 @Data
-@Table(name="sys_class")
-public class SysClass implements Serializable {
+@Table(name="business_question")
+public class Question extends BaseEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotNull(groups = BaseEntity.Update.class)
     @Column(name = "id")
     @ApiModelProperty(value = "id")
     private Long id;
 
-    @Column(name = "name",nullable = false)
+    @Column(name = "content",nullable = false)
     @NotBlank
-    @ApiModelProperty(value = "className")
-    private String name;
+    @ApiModelProperty(value = "questionContent")
+    private String content;
 
-    @Column(name = "create_date")
-    @CreationTimestamp
-    @ApiModelProperty(value = "createDate")
-    private Timestamp createDate;
+    @Column(name = "tid")
+    @ApiModelProperty(value = "typeId")
+    private Integer tid;
 
-    @Column(name = "update_date")
-    @UpdateTimestamp
-    @ApiModelProperty(value = "updatedate")
-    private Timestamp updateDate;
+//    @Column(name = "cid")
+//    @ApiModelProperty(value = "classId")
+//    private Long cid;
 
     @Column(name = "enabled",nullable = false)
     @NotNull
-    @ApiModelProperty(value = "enabled")
+    @ApiModelProperty(value = "status")
     private Boolean enabled;
 
-    public void copy(SysClass source){
+    @Column(name = "answer")
+    @ApiModelProperty(value = "answer")
+    private String answer;
+
+    @OneToOne
+    @JoinColumn(name = "cid")
+    @ApiModelProperty(value = "course info")
+    private SysClass cids;
+
+
+//    @Column(name = "create_by")
+//    @CreationTimestamp
+//    @ApiModelProperty(value = "userName")
+//    private String createBy;
+//
+//    @Column(name = "create_time")
+//    @ApiModelProperty(value = "createDate")
+//    private Timestamp createTime;
+//
+//    @Column(name = "update_time")
+//    @ApiModelProperty(value = "updateDate")
+//    private Timestamp updateTime;
+
+    public void copy(Question source){
         BeanUtil.copyProperties(source,this, CopyOptions.create().setIgnoreNullValue(true));
     }
 
@@ -80,13 +105,13 @@ public class SysClass implements Serializable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        SysClass sysClass = (SysClass) o;
-        return Objects.equals(id, sysClass.id) &&
-                Objects.equals(name, sysClass.name);
+        Question question = (Question) o;
+        return Objects.equals(id, question.id) &&
+                Objects.equals(content, question.content);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name);
+        return Objects.hash(id, content);
     }
 }

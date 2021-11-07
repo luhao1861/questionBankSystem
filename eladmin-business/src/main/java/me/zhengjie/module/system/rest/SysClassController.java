@@ -18,7 +18,9 @@ package me.zhengjie.module.system.rest;
 import me.zhengjie.annotation.Log;
 import me.zhengjie.module.system.domain.SysClass;
 import me.zhengjie.module.system.service.SysClassService;
+import me.zhengjie.module.system.service.dto.SysClassDto;
 import me.zhengjie.module.system.service.dto.SysClassQueryCriteria;
+import me.zhengjie.utils.PageUtil;
 import org.springframework.data.domain.Pageable;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -28,6 +30,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.*;
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 /**
@@ -57,6 +60,15 @@ public class SysClassController {
     @PreAuthorize("@el.check('sysClass:list')")
     public ResponseEntity<Object> query(SysClassQueryCriteria criteria, Pageable pageable){
         return new ResponseEntity<>(sysClassService.queryAll(criteria,pageable),HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/queryAll")
+    @Log("查询课程管理(不分页）")
+    @ApiOperation("查询课程管理（不分页）")
+    @PreAuthorize("@el.check('sysClass:list')")
+    public ResponseEntity<Object> query(SysClassQueryCriteria criteria){
+        List<SysClassDto> sysClassDtos = sysClassService.queryAll(criteria);
+        return new ResponseEntity<>(PageUtil.toPage(sysClassDtos, sysClassDtos.size()),HttpStatus.OK);
     }
 
     @PostMapping

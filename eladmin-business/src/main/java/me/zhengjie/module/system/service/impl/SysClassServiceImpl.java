@@ -15,21 +15,23 @@
 */
 package me.zhengjie.module.system.service.impl;
 
+import cn.hutool.core.util.ObjectUtil;
 import me.zhengjie.module.system.domain.SysClass;
-import me.zhengjie.utils.ValidationUtil;
-import me.zhengjie.utils.FileUtil;
+import me.zhengjie.utils.*;
 import lombok.RequiredArgsConstructor;
 import me.zhengjie.module.system.repository.SysClassRepository;
 import me.zhengjie.module.system.service.SysClassService;
 import me.zhengjie.module.system.service.dto.SysClassDto;
 import me.zhengjie.module.system.service.dto.SysClassQueryCriteria;
 import me.zhengjie.module.system.service.mapstruct.SysClassMapper;
+import me.zhengjie.utils.enums.DataScopeEnum;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import me.zhengjie.utils.PageUtil;
-import me.zhengjie.utils.QueryHelp;
+
+import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
 import java.io.IOException;
@@ -58,8 +60,12 @@ public class SysClassServiceImpl implements SysClassService {
 
     @Override
     public List<SysClassDto> queryAll(SysClassQueryCriteria criteria){
+        //Sort sort = Sort.by(Sort.Direction.ASC, "sysClassSort");
+        //List<SysClassDto> list = sysClassMapper.toDto(sysClassRepository.findAllEnabled((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root,criteria,criteriaBuilder)));
         return sysClassMapper.toDto(sysClassRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root,criteria,criteriaBuilder)));
+//        return list;
     }
+
 
     @Override
     @Transactional

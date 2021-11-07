@@ -92,12 +92,14 @@ public class UserController {
             // 取交集
             criteria.getDeptIds().retainAll(dataScopes);
             if(!CollectionUtil.isEmpty(criteria.getDeptIds())){
-                return new ResponseEntity<>(userService.queryAll(criteria,pageable),HttpStatus.OK);
+                ResponseEntity<Object> responseEntity = new ResponseEntity<>(userService.queryAll(criteria,pageable),HttpStatus.OK);
+                return responseEntity;
             }
         } else {
             // 否则取并集
             criteria.getDeptIds().addAll(dataScopes);
-            return new ResponseEntity<>(userService.queryAll(criteria,pageable),HttpStatus.OK);
+            ResponseEntity<Object> responseEntity = new ResponseEntity<>(userService.queryAll(criteria,pageable),HttpStatus.OK);
+            return responseEntity;
         }
         return new ResponseEntity<>(PageUtil.toPage(null,0),HttpStatus.OK);
     }
