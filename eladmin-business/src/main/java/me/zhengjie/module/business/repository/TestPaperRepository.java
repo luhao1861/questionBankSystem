@@ -15,8 +15,8 @@
 */
 package me.zhengjie.module.business.repository;
 
-
 import me.zhengjie.module.business.domain.Question;
+import me.zhengjie.module.business.domain.TestPaper;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
@@ -24,17 +24,11 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-
 /**
 * @website https://el-admin.vip
 * @author KunYi
-* @date 2021-11-05
+* @date 2021-11-26
 **/
-public interface QuestionRepository extends JpaRepository<Question, Long>, JpaSpecificationExecutor<Question> {
-
-    @Query(value =  "select * from business_question\n" +
-            "where tid = :tid and cid = :cid\n" +
-            "order by RAND() LIMIT :amount", nativeQuery = true)
-    List<Question> RandomQuestionsByTypeAndCourse(@Param("tid")Integer tid, @Param("cid")Integer cid, @Param("amount")Integer amount);
+public interface TestPaperRepository extends JpaRepository<TestPaper, Long>, JpaSpecificationExecutor<TestPaper> {
 
 }

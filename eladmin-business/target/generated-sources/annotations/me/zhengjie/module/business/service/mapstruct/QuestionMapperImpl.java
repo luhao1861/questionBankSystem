@@ -2,7 +2,7 @@ package me.zhengjie.module.business.service.mapstruct;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.processing.Generated;
+import javax.annotation.Generated;
 import me.zhengjie.module.business.domain.Question;
 import me.zhengjie.module.business.service.dto.QuestionDto;
 import me.zhengjie.module.system.domain.SysClass;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2021-11-07T13:06:13-0800",
+    date = "2021-11-07T21:58:00-0800",
     comments = "version: 1.3.1.Final, compiler: javac, environment: Java 11.0.12 (Eclipse Foundation)"
 )
 @Component

@@ -15,11 +15,11 @@
 */
 package me.zhengjie.module.business.service;
 
-import me.zhengjie.module.business.domain.TestStrategy;
-import me.zhengjie.module.business.service.dto.TestStrategyDto;
-import me.zhengjie.module.business.service.dto.TestStrategyQueryCriteria;
-import me.zhengjie.module.system.service.dto.SysClassDto;
-import me.zhengjie.module.system.service.dto.SysClassQueryCriteria;
+import me.zhengjie.module.business.domain.Question;
+import me.zhengjie.module.business.domain.TestPaper;
+import me.zhengjie.module.business.service.dto.QuestionDto;
+import me.zhengjie.module.business.service.dto.TestPaperDto;
+import me.zhengjie.module.business.service.dto.TestPaperQueryCriteria;
 import org.springframework.data.domain.Pageable;
 import java.util.Map;
 import java.util.List;
@@ -32,7 +32,7 @@ import javax.servlet.http.HttpServletResponse;
 * @author KunYi
 * @date 2021-11-26
 **/
-public interface TestStrategyService {
+public interface TestPaperService {
 
     /**
     * 查询数据分页
@@ -40,34 +40,34 @@ public interface TestStrategyService {
     * @param pageable 分页参数
     * @return Map<String,Object>
     */
-    Map<String,Object> queryAll(TestStrategyQueryCriteria criteria, Pageable pageable);
+    Map<String,Object> queryAll(TestPaperQueryCriteria criteria, Pageable pageable);
 
     /**
     * 查询所有数据不分页
     * @param criteria 条件参数
-    * @return List<TestStrategyDto>
+    * @return List<TestPaperDto>
     */
-    List<TestStrategyDto> queryAll(TestStrategyQueryCriteria criteria);
+    List<TestPaperDto> queryAll(TestPaperQueryCriteria criteria);
 
     /**
      * 根据ID查询
      * @param id ID
-     * @return TestStrategyDto
+     * @return TestPaperDto
      */
-    TestStrategyDto findById(Long id);
+    TestPaperDto findById(Long id);
 
     /**
     * 创建
     * @param resources /
-    * @return TestStrategyDto
+    * @return TestPaperDto
     */
-    TestStrategyDto create(TestStrategy resources);
+    TestPaperDto create(TestPaper resources);
 
     /**
     * 编辑
     * @param resources /
     */
-    void update(TestStrategy resources);
+    void update(TestPaper resources);
 
     /**
     * 多选删除
@@ -81,5 +81,12 @@ public interface TestStrategyService {
     * @param response /
     * @throws IOException /
     */
-    void download(List<TestStrategyDto> all, HttpServletResponse response) throws IOException;
+    void download(List<TestPaperDto> all, HttpServletResponse response) throws IOException;
+
+    /**
+     * 导出试卷
+     * @param all 待导出的数据
+     * @throws IOException /
+     */
+    void downloadpaper(List<Question> all, String title, HttpServletResponse response) throws IOException;
 }

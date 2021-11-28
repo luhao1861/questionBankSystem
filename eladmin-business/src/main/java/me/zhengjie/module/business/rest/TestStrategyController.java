@@ -18,7 +18,11 @@ package me.zhengjie.module.business.rest;
 import me.zhengjie.annotation.Log;
 import me.zhengjie.module.business.domain.TestStrategy;
 import me.zhengjie.module.business.service.TestStrategyService;
+import me.zhengjie.module.business.service.dto.TestStrategyDto;
 import me.zhengjie.module.business.service.dto.TestStrategyQueryCriteria;
+import me.zhengjie.module.system.service.dto.SysClassDto;
+import me.zhengjie.module.system.service.dto.SysClassQueryCriteria;
+import me.zhengjie.utils.PageUtil;
 import org.springframework.data.domain.Pageable;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -28,6 +32,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.*;
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 /**
@@ -57,6 +62,15 @@ public class TestStrategyController {
     @PreAuthorize("@el.check('testStrategy:list')")
     public ResponseEntity<Object> query(TestStrategyQueryCriteria criteria, Pageable pageable){
         return new ResponseEntity<>(testStrategyService.queryAll(criteria,pageable),HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/queryAll")
+    @Log("查询课程管理(不分页）")
+    @ApiOperation("查询课程管理（不分页）")
+    @PreAuthorize("@el.check('testStrategy:list')")
+    public ResponseEntity<Object> query(TestStrategyQueryCriteria criteria){
+        List<TestStrategyDto> testStrategyDtos = testStrategyService.queryAll(criteria);
+        return new ResponseEntity<>(PageUtil.toPage(testStrategyDtos, testStrategyDtos.size()),HttpStatus.OK);
     }
 
     @PostMapping

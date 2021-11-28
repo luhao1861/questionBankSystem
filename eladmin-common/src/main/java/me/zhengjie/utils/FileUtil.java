@@ -19,6 +19,7 @@ import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.poi.excel.BigExcelWriter;
 import cn.hutool.poi.excel.ExcelUtil;
+import cn.hutool.poi.word.Word07Writer;
 import me.zhengjie.exception.BadRequestException;
 import org.apache.poi.util.IOUtils;
 import org.apache.poi.xssf.streaming.SXSSFSheet;
@@ -28,6 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.awt.*;
 import java.io.*;
 import java.security.MessageDigest;
 import java.text.DecimalFormat;
@@ -203,6 +205,34 @@ public class FileUtil extends cn.hutool.core.io.FileUtil {
             log.error(e.getMessage(), e);
         }
         return null;
+    }
+
+    /**
+     * 导出docx
+     */
+    public static void downloadDocx(List<String> list, String title, HttpServletResponse response) throws IOException {
+        String tempPath = SYS_TEM_DIR + IdUtil.fastSimpleUUID() + ".docx";
+        File file = new File(tempPath);
+        Word07Writer writer = new Word07Writer(file);
+        //title
+        writer.addText(new Font("Arial", Font.PLAIN, 15), title);
+
+        //questions
+        for(String question: list){
+            String[] split = question.split("\\n\\n");
+            for(String line:split){
+                writer.addText(new Font("Arial", Font.PLAIN, 10), line);
+            }
+        }
+
+        //test.docx是弹出下载对话框的文件名，不能为中文，中文请自行编码
+        response.setHeader("Content-Disposition", "attachment;filename=file.docx");
+        ServletOutputStream out = response.getOutputStream();
+         //终止后删除临时文件
+        file.deleteOnExit();
+        writer.flush(out, true);
+        //此处记得关闭输出Servlet流
+        IoUtil.close(out);
     }
 
     /**
