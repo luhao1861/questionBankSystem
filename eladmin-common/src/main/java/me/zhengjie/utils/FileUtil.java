@@ -219,7 +219,7 @@ public class FileUtil extends cn.hutool.core.io.FileUtil {
 
         //questions
         for(String question: list){
-            String[] split = question.split("\\n\\n");
+            String[] split = question.split("\\n");
             for(String line:split){
                 writer.addText(new Font("Arial", Font.PLAIN, 10), line);
             }
